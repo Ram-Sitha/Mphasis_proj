@@ -1,0 +1,62 @@
+{% extends "auth_base.html" %}
+{% block content %}
+
+<div style="margin-top: 2rem;">
+
+    <!-- 🔙 BACK BUTTON -->
+    <div style="margin-bottom: 1rem;">
+        <a href="{{ url_for('index') }}"
+           style="text-decoration: none; color: var(--text-muted); font-size: 1rem;">
+            ← Back
+        </a>
+    </div>
+
+    <div style="margin-top: 3rem; text-align: center;">
+
+        <h1 style="font-size: 2.8rem;">🚀 Get Started</h1>
+
+        <p style="color: var(--text-muted); margin-bottom: 3rem;">
+            Choose how you want to join FreshTrace
+        </p>
+
+        <div style="display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap;">
+
+            <!-- 👤 USER REGISTER -->
+            <div class="card glass"
+                 onclick="window.location.href='{{ url_for('signup') }}'"
+                 style="padding: 2rem; width: 280px; cursor: pointer; text-align: center; transition: 0.3s;">
+
+                <i class="ph-fill ph-user-plus"
+                   style="font-size: 3rem; color: var(--primary);"></i>
+
+                <h3 style="margin-top: 1rem;">User Registration</h3>
+
+                <p style="color: var(--text-muted); font-size: 0.9rem;">
+                    Track products and view supply chain data
+                </p>
+
+            </div>
+
+            <!-- 👨‍💼 ADMIN REGISTER -->
+            <div class="card glass"
+                 onclick="window.location.href='{{ url_for('admin_register') }}'"
+                 style="padding: 2rem; width: 280px; cursor: pointer; text-align: center; border: 2px solid var(--accent); transition: 0.3s;">
+
+                <i class="ph-fill ph-shield-plus"
+                   style="font-size: 3rem; color: var(--accent);"></i>
+
+                <h3 style="margin-top: 1rem;">Admin Registration</h3>
+
+                <p style="color: var(--text-muted); font-size: 0.9rem;">
+                    Manage products and control the system
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

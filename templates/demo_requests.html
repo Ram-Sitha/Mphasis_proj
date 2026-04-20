@@ -1,0 +1,57 @@
+
+{% extends "base.html" %}
+{% block content %}
+<div style="margin-top:3rem;">
+
+    <h1 style="font-size:2.5rem; margin-bottom:2rem;">
+        📩 Demo Requests
+    </h1>
+
+    <div class="card glass" style="padding:0;">
+
+        <table style="width:100%; border-collapse:collapse;">
+
+            <thead>
+                <tr style="border-bottom:1px solid var(--border);">
+                    <th style="padding:1rem;">Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Message</th>
+                    <th>Date</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for r in requests %}
+                <tr style="border-bottom:1px solid var(--border);">
+
+                    <td style="padding:1rem;">{{ r.name }}</td>
+                    <td>{{ r.email }}</td>
+                    <td>{{ r.phone }}</td>
+                    <td>{{ r.message }}</td>
+                    <td>{{ r.created_at.strftime('%Y-%m-%d') }}</td>
+
+                    <td>
+                        <a href="{{ url_for('delete_demo_request', id=r.id) }}"
+                           class="btn btn-outline">
+                           ❌ Delete
+                        </a>
+                    </td>
+
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="6" style="padding:2rem; text-align:center;">
+                        No demo requests yet
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+{% endblock %}

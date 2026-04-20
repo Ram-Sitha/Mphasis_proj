@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FreshTrace</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- ❌ NO NAVBAR -->
+
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        {% for message in messages %}
+          <div class="glass badge badge-warning"
+               style="margin-top: 2rem; padding: 1rem;">
+              {{ message }}
+          </div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    {% block content %}{% endblock %}
+
+</div>
+
+<footer style="margin-top: 3rem; text-align: center; padding: 1rem; color: var(--text-muted); font-size: 0.8rem;">
+    <p>&copy; 2026 FreshTrace</p>
+</footer>
+
+</body>
+</html>

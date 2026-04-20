@@ -1,0 +1,110 @@
+{% extends "auth_base.html" %}
+
+{% block content %}
+
+<!-- ================= HERO ================= -->
+<section class="hero" style="text-align: center; margin-top: 5rem;">
+
+    <h1 style="font-size: 3rem;">
+        Transparent Traceability <br>for Perishable Goods
+    </h1>
+
+    <p style="margin-top: 1rem; color: var(--text-muted);">
+        Empower your supply chain with blockchain and IoT-powered tracking.
+        Ensure freshness, safety, and trust from farm to fork.
+    </p>
+
+    <!-- 🔥 ONLY GET STARTED BUTTON -->
+    <div style="margin-top: 2rem;">
+        <a href="{{ url_for('get_started') }}" class="btn btn-primary">
+            Get Started
+        </a>
+    </div>
+
+</section>
+
+
+<!-- ================= FEATURES ================= -->
+<section class="dashboard-grid" style="margin-top: 4rem;">
+
+    <div class="card glass">
+        <i class="ph-bold ph-cube" style="font-size: 2.5rem; color: var(--primary);"></i>
+        <h3>Immutable Ledger</h3>
+        <p style="color: var(--text-muted); font-size: 0.9rem;">
+            All tracking data is stored on a secure blockchain, ensuring tamper-proof records.
+        </p>
+    </div>
+
+    <div class="card glass">
+        <i class="ph-bold ph-thermometer" style="font-size: 2.5rem; color: var(--primary);"></i>
+        <h3>Real-time IoT</h3>
+        <p style="color: var(--text-muted); font-size: 0.9rem;">
+            Monitor temperature, humidity, and location in real time using IoT sensors.
+        </p>
+    </div>
+
+    <div class="card glass">
+        <i class="ph-bold ph-leaf" style="font-size: 2.5rem; color: var(--primary);"></i>
+        <h3>Freshness Alerts</h3>
+        <p style="color: var(--text-muted); font-size: 0.9rem;">
+            Automated freshness scoring helps prevent spoilage and ensures product quality.
+        </p>
+    </div>
+
+</section>
+
+
+<!-- ================= CTA ================= -->
+<div class="card glass"
+     style="margin-top: 4rem; text-align: center; padding: 3rem;">
+
+    <h2>Secure. Scalable. Fresh.</h2>
+
+    <p style="color: var(--text-muted); margin-top: 1rem;">
+        Designed for modern food supply chains with performance and transparency.
+    </p>
+
+    <a href="#contactForm" class="btn btn-primary" style="margin-top: 1.5rem;">
+        Request Demo
+    </a>
+
+</div>
+
+
+<!-- ================= CONTACT FORM ================= -->
+<div id="contactForm" class="card glass"
+     style="margin-top: 4rem; padding: 2rem; max-width: 600px; margin-left: auto; margin-right: auto;">
+
+    <h2 style="margin-bottom: 1.5rem;">📞 Request Demo</h2>
+
+    <form method="POST" action="/contact">
+
+        <div style="margin-bottom: 1rem;">
+            <label>Name</label>
+            <input type="text" name="name" class="form-control" required>
+        </div>
+
+        <div style="margin-bottom: 1rem;">
+            <label>Email</label>
+            <input type="email" name="email" class="form-control" required>
+        </div>
+
+        <div style="margin-bottom: 1rem;">
+            <label>Phone</label>
+            <input type="text" name="phone" class="form-control" required>
+        </div>
+
+        <div style="margin-bottom: 1rem;">
+            <label>Message</label>
+            <textarea name="message" class="form-control" rows="3"></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="width:100%;">
+            Submit Request
+        </button>
+
+    </form>
+
+</div>
+
+{% endblock %}

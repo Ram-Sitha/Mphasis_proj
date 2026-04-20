@@ -1,0 +1,106 @@
+{% extends "auth_base.html" %}
+{% block content %}
+
+<div style="margin-top: 2rem;">
+
+    <!-- 🔙 BACK BUTTON -->
+    <div style="margin-bottom: 1rem;">
+        <a href="{{ url_for('get_started') }}"
+           style="text-decoration: none; color: var(--text-muted); font-size: 1rem;">
+            ← Back
+        </a>
+    </div>
+
+    <div class="card glass auth-form">
+
+        {% if request.path == '/admin/login' %}
+            <!-- 🔐 ADMIN LOGIN -->
+            <h2 style="color: var(--accent);">👨‍💼 Admin Login</h2>
+
+            <p style="color: var(--text-muted); margin-bottom: 1.5rem;">
+                Secure admin access
+            </p>
+
+            <form action="{{ url_for('admin_login') }}" method="POST">
+
+                <div class="form-group">
+                    <label>Admin Key</label>
+                    <input type="password" name="admin_key" class="form-control" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Username</label>
+                    <input type="text" name="username" class="form-control" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" name="password" class="form-control" required>
+                </div>
+
+                <button class="btn btn-primary" style="width:100%; margin-top:1rem;">
+                    Login
+                </button>
+
+            </form>
+
+            <p style="margin-top:1rem; text-align:center;">
+                New admin?
+                <a href="{{ url_for('admin_register') }}" style="color: var(--accent);">
+                    Register here
+                </a>
+            </p>
+
+        {% else %}
+            <!-- 📝 ADMIN REGISTER -->
+            <h2 style="color: var(--accent);">👨‍💼 Admin Registration</h2>
+
+            <p style="color: var(--text-muted); margin-bottom: 1.5rem;">
+                Create administrator account
+            </p>
+
+            <form action="{{ url_for('admin_register') }}" method="POST">
+
+                <div class="form-group">
+                    <label>Admin Secret Key</label>
+                    <input type="password" name="admin_key" class="form-control" required>
+                </div>
+
+                <hr style="margin:1.5rem 0;">
+
+                <div class="form-group">
+                    <label>Username</label>
+                    <input type="text" name="username" class="form-control" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" name="email" class="form-control" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" name="password" class="form-control" required>
+                </div>
+
+                <button class="btn btn-primary"
+                        style="width:100%; margin-top:1rem; background: var(--accent);">
+                    Register
+                </button>
+
+            </form>
+
+            <p style="margin-top:1rem; text-align:center;">
+                Already have an account?
+                <a href="{{ url_for('admin_login') }}" style="color: var(--accent);">
+                    Login here
+                </a>
+            </p>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+{% endblock %}

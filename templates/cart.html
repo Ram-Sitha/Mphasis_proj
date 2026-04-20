@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div style="margin-top: 3rem;">
+
+    <h2>🛒 Your Cart</h2>
+
+    {% if products %}
+
+        <div class="dashboard-grid">
+
+        {% for p in products %}
+        <div class="card glass" style="padding: 1.5rem;">
+
+            <h3>{{ p.name }}</h3>
+            <p style="color: var(--text-muted);">{{ p.category }}</p>
+
+            <p>
+                <b>ID:</b>
+                <span style="font-family: monospace; color: var(--primary);">
+                    {{ p.product_id }}
+                </span>
+            </p>
+
+            <!-- 🔥 ACTIONS -->
+            <div style="margin-top:1rem; display:flex; gap:0.5rem;">
+
+                <!-- View -->
+                <a href="{{ url_for('trace_product', product_id=p.product_id) }}"
+                   class="btn btn-outline">
+                   🔍 View
+                </a>
+
+                <!-- ❌ REMOVE -->
+                <a href="{{ url_for('remove_from_cart', product_id=p.product_id) }}"
+                   class="btn btn-danger">
+                   ❌ Remove
+                </a>
+
+            </div>
+
+        </div>
+        {% endfor %}
+
+        </div>
+
+    {% else %}
+
+        <div class="card glass" style="padding:2rem; text-align:center;">
+            <p style="color: var(--text-muted);">No items in cart</p>
+        </div>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

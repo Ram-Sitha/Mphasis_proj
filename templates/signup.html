@@ -1,0 +1,67 @@
+{% extends "auth_base.html" %}
+{% block content %}
+
+<div style="margin-top: 2rem;">
+
+    <!-- 🔙 BACK BUTTON -->
+    <div style="margin-bottom: 1rem;">
+        <a href="{{ url_for('get_started') }}"
+           style="text-decoration: none; color: var(--text-muted); font-size: 1rem;">
+            ← Back
+        </a>
+    </div>
+
+    <!-- SIGNUP CARD -->
+    <div class="card glass auth-form">
+
+        <h2 style="font-size: 2.2rem; margin-bottom: 2rem; color: var(--primary);">
+            👤 User Sign Up
+        </h2>
+
+        <form action="{{ url_for('signup') }}" method="POST">
+
+            <div class="form-group">
+                <label>Full Name</label>
+                <input type="text" name="full_name" class="form-control"
+                       placeholder="John Doe" required>
+            </div>
+
+            <div class="form-group">
+                <label>Username</label>
+                <input type="text" name="username" class="form-control"
+                       placeholder="johndoe123" required>
+            </div>
+
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" name="email" class="form-control"
+                       placeholder="john@example.com" required>
+            </div>
+
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" name="password" class="form-control"
+                       placeholder="Create a strong password" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary"
+                    style="width: 100%; margin-top: 1.5rem;">
+                Join FreshTrace
+            </button>
+
+        </form>
+
+        <!-- LOGIN LINK -->
+        <p style="text-align: center; margin-top: 1.5rem; color: var(--text-muted);">
+            Already a member?
+            <a href="{{ url_for('login') }}"
+               style="color: var(--primary); text-decoration: none;">
+               Login here
+            </a>
+        </p>
+
+    </div>
+
+</div>
+
+{% endblock %}

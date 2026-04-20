@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2>Available Products</h2>
+
+<div class="dashboard-grid">
+{% for p in products %}
+<div class="card glass">
+
+    <h3>{{ p.name }}</h3>
+    <p>{{ p.category }}</p>
+    <p>ID: {{ p.product_id }}</p>
+
+    <a href="{{ url_for('add_to_cart', product_id=p.product_id) }}"
+       class="btn btn-primary">
+       Add to Cart
+    </a>
+
+</div>
+{% endfor %}
+</div>
+
+{% endblock %}

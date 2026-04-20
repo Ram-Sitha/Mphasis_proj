@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FreshTrace | Perishable Traceability</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <!-- Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <!-- Charts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- ================= NAVBAR ================= -->
+    <nav>
+        <a href="/" class="logo">
+            <i class="ph-fill ph-shield-checkered"></i>
+            FreshTrace
+        </a>
+
+        <ul class="nav-links">
+
+            <li><a href="/">Home</a></li>
+
+            {% if current_user.is_authenticated %}
+
+                <!-- Dashboard -->
+                <li>
+                    <a href="{{ url_for('dashboard') }}">
+                        <i class="ph ph-speedometer"></i> Dashboard
+                    </a>
+                </li>
+
+                <!-- 🔥 USER ONLY -->
+                {% if current_user.role == 'user' %}
+                <li>
+                    <a href="{{ url_for('products') }}">
+                        <i class="ph ph-cube"></i> Products
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{ url_for('view_cart') }}">
+                        <i class="ph ph-shopping-cart"></i> Cart
+                    </a>
+                </li>
+                {% endif %}
+
+                <!-- 🔥 ROLE BASED HISTORY -->
+                <li>
+                    <a href="{{ url_for('history') }}">
+                        {% if current_user.role == 'admin' %}
+                            <i class="ph ph-chart-bar"></i> Product Ledger
+                        {% else %}
+                            <i class="ph ph-clock-counter-clockwise"></i> History
+                        {% endif %}
+                    </a>
+                </li>
+
+                <!-- 🔥 ADMIN ONLY -->
+                {% if current_user.role == 'admin' %}
+                <li>
+                    <a href="{{ url_for('demo_requests') }}">
+                        <i class="ph ph-envelope"></i> Demo Requests
+                    </a>
+                </li>
+                {% endif %}
+
+                <!-- Logout -->
+                <li>
+                    <a href="{{ url_for('logout') }}">
+                        <i class="ph ph-sign-out"></i> Logout
+                    </a>
+                </li>
+
+            {% else %}
+
+                <li><a href="{{ url_for('login') }}">Login</a></li>
+                <li><a href="{{ url_for('signup') }}">Sign Up</a></li>
+                <li><a href="{{ url_for('admin_register') }}">Admin Register</a></li>
+
+            {% endif %}
+        </ul>
+    </nav>
+
+    <!-- ================= FLASH MESSAGES ================= -->
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        {% for message in messages %}
+          <div class="glass badge badge-warning"
+               style="margin-top: 2rem; padding: 1rem; border-radius: 12px;">
+              {{ message }}
+          </div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    <!-- ================= PAGE CONTENT ================= -->
+    {% block content %}{% endblock %}
+
+</div>
+
+<!-- ================= FOOTER ================= -->
+<footer style="margin-top: 5rem; text-align: center; padding: 2rem; color: var(--text-muted); font-size: 0.8rem;">
+    <p>&copy; 2026 FreshTrace Blockchain & IoT Solutions.</p>
+</footer>
+
+<!-- ================= EXTRA SCRIPTS ================= -->
+{% block scripts %}{% endblock %}
+
+</body>
+</html>

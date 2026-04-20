@@ -1,0 +1,65 @@
+{% extends "auth_base.html" %}
+{% block content %}
+
+<div style="margin-top: 2rem;">
+
+    <!-- 🔙 BACK BUTTON -->
+    <div style="margin-bottom: 1rem;">
+        <a href="{{ url_for('index') }}"
+           style="text-decoration: none; color: var(--text-muted); font-size: 1rem;">
+            ← Back
+        </a>
+    </div>
+
+    <!-- LOGIN CARD -->
+    <div class="card glass auth-form">
+
+        <!-- 👤 USER LOGIN -->
+        <h2 style="font-size: 2.2rem; margin-bottom: 1rem; color: var(--primary);">
+            👤 User Login
+        </h2>
+
+        <p style="color: var(--text-muted); margin-bottom: 1.5rem;">
+            Access your product tracking dashboard
+        </p>
+
+        <!-- FORM -->
+        <form action="{{ url_for('login') }}" method="POST">
+
+            <div class="form-group">
+                <label>Username</label>
+                <input type="text" name="username" class="form-control"
+                       placeholder="Enter your username" required>
+            </div>
+
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" name="password" class="form-control"
+                       placeholder="Enter your password" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary"
+                    style="width: 100%; margin-top: 1.5rem;">
+                Log In
+            </button>
+
+        </form>
+
+        <!-- LINKS -->
+        <div style="text-align: center; margin-top: 1.5rem;">
+
+            <p style="color: var(--text-muted);">
+                Don't have an account?
+                <a href="{{ url_for('signup') }}"
+                   style="color: var(--primary); text-decoration: none;">
+                   Sign up here
+                </a>
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

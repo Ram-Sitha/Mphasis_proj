@@ -1,0 +1,139 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+<div style="margin-top: 3rem;">
+
+    <h1 style="font-size: 2.5rem; margin-bottom: 2rem;">
+        👨‍💼 Admin Console - 
+        <span style="color: var(--accent);">Blockchain Operator</span>
+    </h1>
+
+    <!-- ================= ADD PRODUCT ================= -->
+    <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 2rem; margin-bottom: 3rem;">
+        
+        <div class="card glass">
+            <h2 style="margin-bottom: 1.5rem; color: var(--accent);">Add New Product</h2>
+
+            <form action="{{ url_for('add_product') }}" method="POST">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                    
+                    <div class="form-group">
+                        <label>Product Name</label>
+                        <input type="text" name="name" class="form-control" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Product ID</label>
+                        <input type="text" name="product_id" class="form-control" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Category</label>
+                        <select name="category" class="form-control">
+                            <option value="Produce">Produce</option>
+                            <option value="Dairy">Dairy</option>
+                            <option value="Meat">Meat</option>
+                            <option value="Frozen">Frozen</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Origin</label>
+                        <input type="text" name="origin" class="form-control" required>
+                    </div>
+
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="margin-top: 1rem; width: 100%;">
+                    ➕ Register Product
+                </button>
+            </form>
+        </div>
+
+        <!-- Stats -->
+        <div class="card glass">
+            <h3>System Status</h3>
+            <p style="color: var(--text-muted);">Blockchain Active</p>
+
+            <hr>
+
+            <p><b>Total Products:</b> {{ products|length }}</p>
+            <p><b>Status:</b> Trusted ✅</p>
+        </div>
+
+    </div>
+
+    <!-- ================= PRODUCT TABLE ================= -->
+    <h2 style="margin-bottom: 1.5rem;">📦 Product Ledger</h2>
+
+    <div class="card glass" style="padding: 0;">
+        <table style="width: 100%; border-collapse: collapse;">
+            
+            <thead>
+                <tr style="border-bottom: 1px solid var(--border);">
+                    <th style="padding: 1rem;">ID</th>
+                    <th>Product</th>
+                    <th>Category</th>
+                    <th>Origin</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for p in products %}
+                <tr style="border-bottom: 1px solid var(--border);">
+
+                    <td style="padding: 1rem; color: var(--primary); font-family: monospace;">
+                        {{ p.product_id }}
+                    </td>
+
+                    <td>{{ p.name }}</td>
+                    <td>{{ p.category }}</td>
+                    <td>{{ p.origin }}</td>
+
+                    <td style="padding: 1rem;">
+
+                        <!-- TRACE -->
+                        <a href="{{ url_for('trace_product', product_id=p.product_id) }}"
+                           class="btn btn-outline">
+                           🔍 Trace
+                        </a>
+
+                        <!-- COPY LINK -->
+                        <button onclick="copyLink('{{ p.product_id }}')" 
+                                class="btn btn-outline">
+                            🔗 Copy Link
+                        </button>
+
+                        <!-- QR CODE -->
+                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=80x80&data={{ request.host_url }}product/trace/{{ p.product_id }}" 
+                             style="margin-top:5px; border-radius:6px;" />
+
+                    </td>
+                </tr>
+
+                {% else %}
+                <tr>
+                    <td colspan="5" style="padding: 2rem; text-align: center;">
+                        No products yet
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+
+        </table>
+    </div>
+
+</div>
+
+<!-- ================= JS ================= -->
+<script>
+function copyLink(productId) {
+    const url = window.location.origin + "/product/trace/" + productId;
+    navigator.clipboard.writeText(url);
+    alert("Link copied: " + url);
+}
+</script>
+
+{% endblock %}

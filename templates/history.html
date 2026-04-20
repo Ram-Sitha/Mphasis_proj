@@ -1,0 +1,85 @@
+
+{% extends "base.html" %}
+{% block content %}
+<div style="margin-top: 3rem;">
+
+    <!-- ROLE BASED TITLE -->
+    <h1>
+        {% if current_user.role == 'admin' %}
+            📊 Product Ledger
+        {% else %}
+            📦 Product History
+        {% endif %}
+    </h1>
+
+    <p style="color: var(--text-muted); margin-bottom: 2rem;">
+        {% if current_user.role == 'admin' %}
+            Manage blockchain records of all products.
+        {% else %}
+            View product history. Click a product to see full journey.
+        {% endif %}
+    </p>
+
+    <div class="dashboard-grid">
+
+        {% for product in products %}
+
+        <!-- 🔥 USER: CARD CLICK ENABLED -->
+        <div class="card glass"
+             {% if current_user.role != 'admin' %}
+             onclick="window.location.href='/product/trace/{{ product.product_id }}'"
+             style="cursor:pointer; padding:1.5rem;"
+             {% else %}
+             style="padding:1.5rem;"
+             {% endif %}>
+
+            <h3>{{ product.name }}</h3>
+
+            <p style="color: var(--text-muted);">
+                {{ product.origin }}
+            </p>
+
+            <p>
+                <b>ID:</b>
+                <span style="font-family: monospace; color: var(--primary);">
+                    {{ product.product_id }}
+                </span>
+            </p>
+
+            <div style="margin-top:1rem; display:flex; gap:0.5rem; flex-wrap:wrap;">
+
+                <!-- 👨‍💼 ADMIN ONLY -->
+                {% if current_user.role == 'admin' %}
+                <a href="{{ url_for('trace_product', product_id=product.product_id) }}"
+                   class="btn btn-outline">
+                   🔍 View
+                </a>
+                {% endif %}
+
+                <!-- COMMON -->
+                <button onclick="copyLink('{{ product.product_id }}'); event.stopPropagation();" 
+                        class="btn btn-outline">
+                    🔗 Copy ID
+                </button>
+
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=80x80&data={{ request.host_url }}product/trace/{{ product.product_id }}"
+                     style="border-radius:6px;"
+                     onclick="event.stopPropagation();">
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</div>
+
+<script>
+function copyLink(productId) {
+    const url = window.location.origin + "/product/trace/" + productId;
+    navigator.clipboard.writeText(url);
+}
+</script>
+
+{% endblock %}
